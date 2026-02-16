@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Campaign {
+  id          Int        @id @default(autoincrement())
+  name        String
+  budgetTotal Int        // in VND (e.g. 500000 = 500k)
+  budgetUsed  Int        @default(0)
+  startAt     DateTime   @default(now())
+  endAt       DateTime?
+  status      String     @default("active") // active | closed
+  createdAt   DateTime   @default(now())
+  envelopes   Envelope[]
+
+  @@map("campaigns")
+}
+
+model Envelope {
+  id         Int       @id @default(autoincrement())
+  campaignId Int
+  campaign   Campaign  @relation(fields: [campaignId], references: [id])
+  tokenHash  String    @unique // sha256(token)
+  status     String    @default("unused") // unused | claimed
+  amount     Int?      // VND, null until claimed
+  wish       String?
+  claimedAt  DateTime?
+  claimedIp  String?
+  recipientBank    String?   // Bank name/ID (e.g. "MB", "VCB")
+  recipientAccount String?   // Bank account number
+  recipientName    String?   // Account holder name
+  expiresAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([campaignId])
+  @@map("envelopes")
+}
