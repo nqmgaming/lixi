@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { MusicIcon, MuteIcon } from './Icons';
 
 export function BackgroundMusic() {
-    const [muted, setMuted] = useState(true);
+    const [muted, setMuted] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
