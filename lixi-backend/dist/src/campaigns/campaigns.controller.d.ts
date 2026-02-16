@@ -5,28 +5,28 @@ export declare class CampaignsController {
     private readonly campaignsService;
     constructor(campaignsService: CampaignsService);
     create(dto: CreateCampaignDto): Promise<{
+        id: number;
         name: string;
         budgetTotal: number;
+        budgetUsed: number;
         startAt: Date;
         endAt: Date | null;
-        budgetUsed: number;
         status: string;
         createdAt: Date;
-        id: number;
     }>;
     findAll(): Promise<({
         _count: {
             envelopes: number;
         };
     } & {
+        id: number;
         name: string;
         budgetTotal: number;
+        budgetUsed: number;
         startAt: Date;
         endAt: Date | null;
-        budgetUsed: number;
         status: string;
         createdAt: Date;
-        id: number;
     })[]>;
     findOne(id: number): Promise<{
         stats: {
@@ -36,23 +36,23 @@ export declare class CampaignsController {
             budgetRemaining: number;
         };
         envelopes: {
+            id: number;
             status: string;
             createdAt: Date;
-            id: number;
             amount: number | null;
             claimedAt: Date | null;
         }[];
         _count: {
             envelopes: number;
         };
+        id: number;
         name: string;
         budgetTotal: number;
+        budgetUsed: number;
         startAt: Date;
         endAt: Date | null;
-        budgetUsed: number;
         status: string;
         createdAt: Date;
-        id: number;
     }>;
     generateEnvelopes(id: number, dto: GenerateEnvelopesDto, req: Request): Promise<{
         token: string;

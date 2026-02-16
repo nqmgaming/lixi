@@ -4,28 +4,28 @@ export declare class CampaignsService {
     private prisma;
     constructor(prisma: PrismaService);
     create(dto: CreateCampaignDto): Promise<{
+        id: number;
         name: string;
         budgetTotal: number;
+        budgetUsed: number;
         startAt: Date;
         endAt: Date | null;
-        budgetUsed: number;
         status: string;
         createdAt: Date;
-        id: number;
     }>;
     findAll(): Promise<({
         _count: {
             envelopes: number;
         };
     } & {
+        id: number;
         name: string;
         budgetTotal: number;
+        budgetUsed: number;
         startAt: Date;
         endAt: Date | null;
-        budgetUsed: number;
         status: string;
         createdAt: Date;
-        id: number;
     })[]>;
     findOne(id: number): Promise<{
         stats: {
@@ -35,23 +35,23 @@ export declare class CampaignsService {
             budgetRemaining: number;
         };
         envelopes: {
+            id: number;
             status: string;
             createdAt: Date;
-            id: number;
             amount: number | null;
             claimedAt: Date | null;
         }[];
         _count: {
             envelopes: number;
         };
+        id: number;
         name: string;
         budgetTotal: number;
+        budgetUsed: number;
         startAt: Date;
         endAt: Date | null;
-        budgetUsed: number;
         status: string;
         createdAt: Date;
-        id: number;
     }>;
     generateEnvelopes(campaignId: number, quantity: number, baseUrl: string): Promise<{
         token: string;
