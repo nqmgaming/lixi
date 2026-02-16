@@ -4,30 +4,46 @@ import { useState, useEffect, useRef } from 'react';
 import { MusicIcon, MuteIcon } from './Icons';
 
 export function BackgroundMusic() {
-    const [muted, setMuted] = useState(false);
+    const [muted, setMuted] = useState(true);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
         // Load preference from localStorage
         const savedMuted = localStorage.getItem('lixi_bgm_muted');
+        let initialMuted = false;
+
         if (savedMuted !== null) {
-            setMuted(savedMuted === 'true');
-        } else {
-            // Default to playing, but browser might block
-            setMuted(false);
+            initialMuted = savedMuted === 'true';
         }
 
-        // Try to autoplay
+        setMuted(initialMuted);
+
         const audio = audioRef.current;
         if (audio) {
             audio.volume = 0.3; // Low volume background
-            const playPromise = audio.play();
 
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Auto-play was prevented
-                    setMuted(true);
-                });
+            if (!initialMuted) {
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        // Auto-play was prevented. 
+                        // Do NOT mute. Wait for interaction.
+                        console.log('Autoplay blocked. Waiting for interaction...');
+
+                        const resumeAudio = () => {
+                            if (audioRef.current) {
+                                audioRef.current.play().then(() => {
+                                    console.log('Audio resumed after interaction');
+                                }).catch(e => console.error('Play failed again', e));
+                            }
+                            document.removeEventListener('click', resumeAudio);
+                            document.removeEventListener('touchstart', resumeAudio);
+                        };
+
+                        document.addEventListener('click', resumeAudio);
+                        document.addEventListener('touchstart', resumeAudio);
+                    });
+                }
             }
         }
     }, []);
@@ -38,13 +54,11 @@ export function BackgroundMusic() {
             if (muted) {
                 audio.pause();
             } else {
-                const playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(() => {
-                        // User interaction needed
-                        setMuted(true);
-                    });
-                }
+                audio.play().catch(e => {
+                    console.error('Manual play failed', e);
+                    // If manual play fails (rare if triggered by click), fallback to interaction listener
+                    // But usually button click IS the interaction.
+                });
             }
             localStorage.setItem('lixi_bgm_muted', String(muted));
         }
