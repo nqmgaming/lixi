@@ -32,21 +32,14 @@ export function EnvelopeIcon({ size = 24, className = '' }: IconProps) {
 
 // ===== Gold Coin =====
 export function CoinIcon({ size = 24, className = '' }: IconProps) {
-    // Safari fix: Use solid colors instead of gradients to prevent low-res rasterization and blurs
     return (
-        <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
-            {/* Outer circle - Solid Gold */}
-            <circle cx="32" cy="32" r="28" fill="#FFD700" stroke="#B8860B" strokeWidth="2" />
-            {/* Inner circle - Darker Gold */}
-            <circle cx="32" cy="32" r="22" fill="#DAA520" stroke="#FFD700" strokeWidth="1.5" />
-            {/* Square hole */}
-            <rect x="26" y="26" width="12" height="12" rx="1" fill="#8B6914" stroke="#FFD700" strokeWidth="1" />
-            {/* Decorative dots */}
-            <circle cx="32" cy="12" r="2" fill="#FFF8DC" opacity="0.6" />
-            <circle cx="32" cy="52" r="2" fill="#FFF8DC" opacity="0.6" />
-            <circle cx="12" cy="32" r="2" fill="#FFF8DC" opacity="0.6" />
-            <circle cx="52" cy="32" r="2" fill="#FFF8DC" opacity="0.6" />
-        </svg>
+        <img
+            src="/coins.svg"
+            alt="Gold Coin"
+            width={size}
+            height={size}
+            className={className}
+        />
     );
 }
 
