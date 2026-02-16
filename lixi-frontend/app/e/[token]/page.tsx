@@ -380,11 +380,6 @@ export default function EnvelopePage({ params }: { params: Promise<{ token: stri
                             </button>
                         </div>
                     )}
-
-                    {/* Campaign name */}
-                    <p className="mt-4 text-xs text-lixi-cream/40">
-                        Từ chiến dịch: {claimResult.campaignName}
-                    </p>
                 </div>
             </div>
         );

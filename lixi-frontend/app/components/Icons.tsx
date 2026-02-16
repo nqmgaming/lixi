@@ -32,21 +32,25 @@ export function EnvelopeIcon({ size = 24, className = '' }: IconProps) {
 
 // ===== Gold Coin =====
 export function CoinIcon({ size = 24, className = '' }: IconProps) {
+    const id = React.useId();
+    const gradId = `coinGrad-${id}`;
+    const innerId = `coinInner-${id}`;
+
     return (
         <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
             <defs>
-                <linearGradient id="coinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#FFD700" />
                     <stop offset="50%" stopColor="#FFA500" />
                     <stop offset="100%" stopColor="#FFD700" />
                 </linearGradient>
-                <linearGradient id="coinInner" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id={innerId} x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#DAA520" />
                     <stop offset="100%" stopColor="#B8860B" />
                 </linearGradient>
             </defs>
-            <circle cx="32" cy="32" r="28" fill="url(#coinGrad)" stroke="#B8860B" strokeWidth="2" />
-            <circle cx="32" cy="32" r="22" fill="url(#coinInner)" stroke="#FFD700" strokeWidth="1.5" />
+            <circle cx="32" cy="32" r="28" fill={`url(#${gradId})`} stroke="#B8860B" strokeWidth="2" />
+            <circle cx="32" cy="32" r="22" fill={`url(#${innerId})`} stroke="#FFD700" strokeWidth="1.5" />
             {/* Square hole */}
             <rect x="26" y="26" width="12" height="12" rx="1" fill="#8B6914" stroke="#FFD700" strokeWidth="1" />
             {/* Decorative dots */}
@@ -60,19 +64,24 @@ export function CoinIcon({ size = 24, className = '' }: IconProps) {
 
 // ===== Horse Zodiac (Ngựa — Bính Ngọ 2026) =====
 export function HorseIcon({ size = 24, className = '' }: IconProps) {
+    const id = React.useId();
+    const goldId = `horseGold-${id}`;
+    const maneId = `horseMane-${id}`;
+    const glowId = `horseGlow-${id}`;
+
     return (
         <svg width={size} height={size} viewBox="0 0 100 100" fill="none" className={className}>
             <defs>
-                <linearGradient id="horseGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id={goldId} x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#FFD700" />
                     <stop offset="50%" stopColor="#FFAA00" />
                     <stop offset="100%" stopColor="#DAA520" />
                 </linearGradient>
-                <linearGradient id="horseMane" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id={maneId} x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#C41E3A" />
                     <stop offset="100%" stopColor="#FF4444" />
                 </linearGradient>
-                <filter id="horseGlow">
+                <filter id={glowId}>
                     <feGaussianBlur stdDeviation="2" result="glow" />
                     <feMerge>
                         <feMergeNode in="glow" />
@@ -81,13 +90,13 @@ export function HorseIcon({ size = 24, className = '' }: IconProps) {
                 </filter>
             </defs>
             {/* Galloping body */}
-            <ellipse cx="48" cy="52" rx="22" ry="15" fill="url(#horseGold)" />
+            <ellipse cx="48" cy="52" rx="22" ry="15" fill={`url(#${goldId})`} />
             {/* Chest */}
-            <ellipse cx="33" cy="45" rx="10" ry="13" fill="url(#horseGold)" />
+            <ellipse cx="33" cy="45" rx="10" ry="13" fill={`url(#${goldId})`} />
             {/* Neck — arched, proud */}
-            <path d="M30 40C28 32 25 24 23 18C22 14 24 10 28 12C31 14 34 22 36 32L33 40Z" fill="url(#horseGold)" />
+            <path d="M30 40C28 32 25 24 23 18C22 14 24 10 28 12C31 14 34 22 36 32L33 40Z" fill={`url(#${goldId})`} />
             {/* Head — refined, long */}
-            <ellipse cx="22" cy="16" rx="9" ry="7" transform="rotate(-20 22 16)" fill="url(#horseGold)" />
+            <ellipse cx="22" cy="16" rx="9" ry="7" transform="rotate(-20 22 16)" fill={`url(#${goldId})`} />
             {/* Snout */}
             <ellipse cx="15" cy="20" rx="5" ry="4" transform="rotate(-10 15 20)" fill="#EEBB44" />
             {/* Ears — alert, pointed */}
@@ -104,14 +113,14 @@ export function HorseIcon({ size = 24, className = '' }: IconProps) {
             {/* Mouth */}
             <path d="M12 23C13 24 15 24.5 17 24" stroke="#8B6914" strokeWidth="0.8" fill="none" />
             {/* Flowing mane — thick, wavy */}
-            <path d="M26 8C29 5 30 10 32 7C34 4 35 12 37 8C39 5 39 14 40 10C41 7 42 16 42 20" stroke="url(#horseMane)" strokeWidth="4" strokeLinecap="round" fill="none" filter="url(#horseGlow)" />
-            <path d="M28 10C30 8 31 12 33 9C35 7 36 14 38 11" stroke="url(#horseMane)" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.6" />
+            <path d="M26 8C29 5 30 10 32 7C34 4 35 12 37 8C39 5 39 14 40 10C41 7 42 16 42 20" stroke={`url(#${maneId})`} strokeWidth="4" strokeLinecap="round" fill="none" filter={`url(#${glowId})`} />
+            <path d="M28 10C30 8 31 12 33 9C35 7 36 14 38 11" stroke={`url(#${maneId})`} strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.6" />
             {/* Front legs — galloping */}
-            <path d="M28 56C26 62 22 68 20 74" stroke="url(#horseGold)" strokeWidth="5" strokeLinecap="round" />
-            <path d="M36 58C35 64 32 70 31 76" stroke="url(#horseGold)" strokeWidth="5" strokeLinecap="round" />
+            <path d="M28 56C26 62 22 68 20 74" stroke={`url(#${goldId})`} strokeWidth="5" strokeLinecap="round" />
+            <path d="M36 58C35 64 32 70 31 76" stroke={`url(#${goldId})`} strokeWidth="5" strokeLinecap="round" />
             {/* Rear legs — kicking back */}
-            <path d="M56 58C58 64 62 70 65 76" stroke="url(#horseGold)" strokeWidth="5" strokeLinecap="round" />
-            <path d="M64 54C67 60 70 66 72 72" stroke="url(#horseGold)" strokeWidth="5" strokeLinecap="round" />
+            <path d="M56 58C58 64 62 70 65 76" stroke={`url(#${goldId})`} strokeWidth="5" strokeLinecap="round" />
+            <path d="M64 54C67 60 70 66 72 72" stroke={`url(#${goldId})`} strokeWidth="5" strokeLinecap="round" />
             {/* Hooves — gleaming */}
             <rect x="17" y="73" width="7" height="4" rx="2" fill="#8B6914" />
             <rect x="28" y="75" width="7" height="4" rx="2" fill="#8B6914" />
@@ -121,9 +130,9 @@ export function HorseIcon({ size = 24, className = '' }: IconProps) {
             <rect x="18" y="73.5" width="3" height="1.5" rx="0.5" fill="#FFD700" opacity="0.5" />
             <rect x="63" y="75.5" width="3" height="1.5" rx="0.5" fill="#FFD700" opacity="0.5" />
             {/* Flowing tail — majestic */}
-            <path d="M68 46C74 42 80 44 78 50C76 56 70 54 74 48" stroke="url(#horseMane)" strokeWidth="4" strokeLinecap="round" fill="none" filter="url(#horseGlow)" />
-            <path d="M70 48C76 50 80 56 76 62" stroke="url(#horseMane)" strokeWidth="3" strokeLinecap="round" fill="none" />
-            <path d="M69 50C75 53 78 58 74 64" stroke="url(#horseMane)" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.6" />
+            <path d="M68 46C74 42 80 44 78 50C76 56 70 54 74 48" stroke={`url(#${maneId})`} strokeWidth="4" strokeLinecap="round" fill="none" filter={`url(#${glowId})`} />
+            <path d="M70 48C76 50 80 56 76 62" stroke={`url(#${maneId})`} strokeWidth="3" strokeLinecap="round" fill="none" />
+            <path d="M69 50C75 53 78 58 74 64" stroke={`url(#${maneId})`} strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.6" />
             {/* Sparkle stars around horse */}
             <path d="M82 20L84 24L88 22L84 25L86 29L83 26L79 28L82 25L80 21L83 23Z" fill="#FFD700" opacity="0.7" />
             <path d="M8 35L9 37L11 36L9 38L10 40L8.5 38.5L7 40L7.5 38L6 37L8 37.5Z" fill="#FFD700" opacity="0.5" />
