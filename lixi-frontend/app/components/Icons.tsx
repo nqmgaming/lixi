@@ -32,25 +32,13 @@ export function EnvelopeIcon({ size = 24, className = '' }: IconProps) {
 
 // ===== Gold Coin =====
 export function CoinIcon({ size = 24, className = '' }: IconProps) {
-    const id = React.useId();
-    const gradId = `coinGrad-${id}`;
-    const innerId = `coinInner-${id}`;
-
+    // Safari fix: Use solid colors instead of gradients to prevent low-res rasterization and blurs
     return (
         <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
-            <defs>
-                <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FFD700" />
-                    <stop offset="50%" stopColor="#FFA500" />
-                    <stop offset="100%" stopColor="#FFD700" />
-                </linearGradient>
-                <linearGradient id={innerId} x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#DAA520" />
-                    <stop offset="100%" stopColor="#B8860B" />
-                </linearGradient>
-            </defs>
-            <circle cx="32" cy="32" r="28" fill={`url(#${gradId})`} stroke="#B8860B" strokeWidth="2" />
-            <circle cx="32" cy="32" r="22" fill={`url(#${innerId})`} stroke="#FFD700" strokeWidth="1.5" />
+            {/* Outer circle - Solid Gold */}
+            <circle cx="32" cy="32" r="28" fill="#FFD700" stroke="#B8860B" strokeWidth="2" />
+            {/* Inner circle - Darker Gold */}
+            <circle cx="32" cy="32" r="22" fill="#DAA520" stroke="#FFD700" strokeWidth="1.5" />
             {/* Square hole */}
             <rect x="26" y="26" width="12" height="12" rx="1" fill="#8B6914" stroke="#FFD700" strokeWidth="1" />
             {/* Decorative dots */}
